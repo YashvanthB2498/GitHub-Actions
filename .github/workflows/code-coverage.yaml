@@ -22,13 +22,13 @@ jobs:
         run: npm test -- --coverage
         
       - name: Test SonarQube server connection
-        run: curl -v $SONAR_HOST_URL
+        run: curl -v http://localhost:9000/
         env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: http://localhost:9000/
 
      
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FIRST_REACT_APP }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: http://localhost:9000/
