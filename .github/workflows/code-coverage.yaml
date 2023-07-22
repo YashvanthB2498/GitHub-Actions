@@ -20,6 +20,12 @@ jobs:
         
       - name: Run tests and generate coverage
         run: npm test -- --coverage
+        
+      - name: Test SonarQube server connection
+        run: curl -v $SONAR_HOST_URL
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
      
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
