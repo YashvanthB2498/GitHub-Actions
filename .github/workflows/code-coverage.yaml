@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main  # Change this to the branch you want to analyze
+      - master
   pull_request:
     branches:
       - main  # Change this to the branch you want to analyze
+      - master
 
 jobs:
   sonarqube:
