@@ -1,32 +1,25 @@
-name: SonarQube Analysis
-
-on:
-  push:
-    branches:
-      - main  # Change this to the branch you want to analyze
-      - master
+name: Build
+on: push
 
 jobs:
+ 
   sonarqube:
+    name: SonarQube Scan
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout source code
         uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
         with:
-          node-version: 14
-
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
       - name: Install dependencies
-        run: npm install
-
-      - name: Run tests and generate coverage
-        run: npm test -- --coverage
-
-   
-      - name: Build and analyze
+        run: yarn install
+     
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FIRST_REACT_APP }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
